@@ -23,33 +23,21 @@ $stmt->bind_result($holdActive);
 $stmt->fetch();
 $stmt->close();
 
-// Check if a book is being checked out
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bookID']) && $holdActive == 0) {
-    $bookID = intval($_POST['bookID']);
-    // Update the book's availability
-    $updateSql = "UPDATE books SET is_available = 0 WHERE id = ? AND is_available = 1";
-    $stmt = $conn->prepare($updateSql);
-    $stmt->bind_param("i", $bookID);
-    $stmt->execute();
-    
-    // Check if the update was successful
-    if ($stmt->affected_rows > 0) {
-        // Calculate the due date (7 days from now)
-        $dueDate = date('Y-m-d H:i:s', strtotime('+7 days'));
-    
-        // Insert a new row into the activityhistory table
-        $insertSql = 'INSERT INTO activityhistory (userID, bookID, activityType, dueDate) VALUES (?, ?, "Checked Out", ?)';
-        $stmt = $conn->prepare($insertSql);
-        $stmt->bind_param("iis", $userID, $bookID, $dueDate);
-        $stmt->execute();
-    }
-    
-    $stmt->close();
-}
-
-// Query to fetch all data from the 'books' table
+// Handle search functionality
+$searchBy = isset($_POST['searchBy']) ? $_POST['searchBy'] : '';
+$searchTerm = isset($_POST['searchTerm']) ? trim($_POST['searchTerm']) : '';
 $sql = "SELECT * FROM books";
-$result = $conn->query($sql);
+
+if (!empty($searchBy) && !empty($searchTerm)) {
+    $sql .= " WHERE $searchBy LIKE ?";
+    $searchTerm = '%' . $searchTerm . '%';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $searchTerm);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    $result = $conn->query($sql);
+}
 
 // Check if the query returned any rows
 if ($result->num_rows > 0) {
@@ -74,6 +62,19 @@ if ($result->num_rows > 0) {
     if ($holdActive == 1) {
         echo '<p style="color: red; font-weight: bold;">Your account has an active hold. You cannot check out books at this time.</p>';
     }
+
+    // Search form
+    echo '<form method="POST" action="" style="margin-bottom: 20px;">';
+    echo '<label for="searchBy">Search By:</label>';
+    echo '<select id="searchBy" name="searchBy" required>';
+    echo '<option value="">Select</option>';
+    echo '<option value="title"' . ($searchBy === 'title' ? ' selected' : '') . '>Title</option>';
+    echo '<option value="author"' . ($searchBy === 'author' ? ' selected' : '') . '>Author</option>';
+    echo '<option value="genre"' . ($searchBy === 'genre' ? ' selected' : '') . '>Genre</option>';
+    echo '</select>';
+    echo '<input type="text" name="searchTerm" placeholder="Enter search term" value="' . htmlspecialchars($searchTerm) . '">';
+    echo '<button type="submit">Search</button>';
+    echo '</form>';
 
     echo '<table>';
     echo '<thead>';
