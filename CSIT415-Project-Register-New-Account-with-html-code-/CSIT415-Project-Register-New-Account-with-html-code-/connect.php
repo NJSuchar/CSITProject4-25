@@ -7,7 +7,7 @@
 class Dbh {
      public $servername = "localhost:3306";
      public $username = "root";
-     public $password = "Apotheosis32";
+     public $password = "password";
      public $dbname = "libman";
      public $conn;
 
