@@ -1,0 +1,70 @@
+<?php
+session_start();
+// Include the database connection file
+require_once("connect.php");
+require_once("libraryfuncts.php");
+// Connect to the database
+$db = new Dbh();
+$conn = $db->connectDB();
+if (!isset($_SESSION['userID'])) {
+    header("Location: university_library.php");
+    exit();
+}
+// check for login
+
+// Query to fetch all data from the 'books' table
+$sql = "SELECT * FROM books";
+$result = $conn->query($sql);
+
+// Check if the query returned any rows
+if ($result->num_rows > 0) {
+    echo '<!DOCTYPE html>';
+    echo '<html lang="en">';
+    echo '<head>';
+    echo '<meta charset="UTF-8">';
+    echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+    echo '<title>Books Table</title>';
+    echo '<style>';
+    echo 'table { border-collapse: collapse; width: 100%; margin: 20px 0; }';
+    echo 'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }';
+    echo 'th { background-color: #f4f4f4; }';
+    echo 'tr:nth-child(even) { background-color: #f9f9f9; }';
+    echo 'tr:hover { background-color: #f1f1f1; }';
+    echo '</style>';
+    echo '</head>';
+    echo '<body>';
+    echo '<h1>Books Table</h1>';
+    echo '<table>';
+    echo '<thead>';
+    echo '<tr>';
+
+    // Fetch column names dynamically
+    $fields = $result->fetch_fields();
+    foreach ($fields as $field) {
+        echo '<th>' . htmlspecialchars($field->name) . '</th>';
+    }
+
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+
+    // Fetch and display rows
+    while ($row = $result->fetch_assoc()) {
+        echo '<tr>';
+        foreach ($row as $value) {
+            echo '<td>' . htmlspecialchars($value) . '</td>';
+        }
+        echo '</tr>';
+    }
+
+    echo '</tbody>';
+    echo '</table>';
+    echo '</body>';
+    echo '</html>';
+} else {
+    echo '<p>No records found in the books table.</p>';
+}
+
+// Close the database connection
+$conn->close();
+?>

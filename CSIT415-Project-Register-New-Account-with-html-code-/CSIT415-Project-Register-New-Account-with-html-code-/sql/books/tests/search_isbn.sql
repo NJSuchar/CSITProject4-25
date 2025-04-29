@@ -1,0 +1,2 @@
+SELECT * FROM books
+WHERE isbn = '9780143127741';

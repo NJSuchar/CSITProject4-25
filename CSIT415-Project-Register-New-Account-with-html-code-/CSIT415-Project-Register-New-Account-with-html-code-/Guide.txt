@@ -1,0 +1,6 @@
+/*
+https://dev.mysql.com/downloads/installer/
+
+Download mysql to host the database locally.
+
+*/

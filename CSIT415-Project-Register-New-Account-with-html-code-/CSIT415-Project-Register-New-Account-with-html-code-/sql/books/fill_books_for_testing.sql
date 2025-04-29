@@ -1,0 +1,22 @@
+INSERT INTO books (title, author, isbn, publisher, publish_date, genre, page_count, language, is_available)
+VALUES 
+('The Great Adventure', 'John Doe', '9780143127741', 'Adventure Press', '2021-05-10', 'Adventure', 320, 'English', TRUE),
+('The Lost Kingdom', 'Jane Smith', '9780316769488', 'Mystery Books', '2019-11-20', 'Mystery', 250, 'English', TRUE),
+('Fictional Futures', 'Bob Johnson', '9781451686691', 'Future Publishing', '2020-01-15', 'Science Fiction', 410, 'English', TRUE),
+('Secrets of the Past', 'Emily Davis', '9780593099389', 'History House', '2018-07-23', 'Historical Fiction', 280, 'English', TRUE),
+('The Art of Cooking', 'Sarah Lee', '9781449407357', 'Food Press', '2017-03-09', 'Cookbook', 150, 'English', TRUE),
+('Journey to the Unknown', 'Mark Brown', '9780061122415', 'Unknown Publisher', '2015-10-05', 'Adventure', 300, 'English', TRUE),
+('Into the Wilderness', 'Linda Green', '9780452295262', 'Wild Press', '2021-08-30', 'Adventure', 350, 'English', FALSE),
+('The Digital World', 'Michael White', '9781400079131', 'Tech Publishing', '2022-02-18', 'Technology', 420, 'English', FALSE),
+('Deep Space Exploration', 'Oliver Harris', '9780062295350', 'Space Press', '2019-04-11', 'Science Fiction', 480, 'English', TRUE),
+('Love in the Air', 'Jessica Roberts', '9780062362211', 'Romance House', '2018-12-25', 'Romance', 270, 'English', TRUE),
+('The Unseen Depths', 'David Clark', '9780735213212', 'Science Books', '2021-06-16', 'Science', 330, 'English', TRUE),
+('The Mystery of Time', 'Sophia Johnson', '9781101904168', 'Time Books', '2020-09-04', 'Mystery', 290, 'English', TRUE),
+('Cooking with Passion', 'Thomas Brown', '9781118982564', 'Kitchen Press', '2017-01-10', 'Cookbook', 160, 'English', TRUE),
+('Darkness and Light', 'Mary Williams', '9780525575749', 'Fiction House', '2019-12-03', 'Fantasy', 400, 'English', FALSE),
+('Power and Politics', 'James Taylor', '9780374281158', 'Political Press', '2020-05-21', 'Politics', 350, 'English', TRUE),
+('Echoes of the Past', 'Karen White', '9780399562704', 'History Books', '2016-09-14', 'Historical Fiction', 310, 'English', TRUE),
+('City of Dreams', 'Carlos Martinez', '9780345803510', 'Dream Press', '2021-02-25', 'Urban Fiction', 270, 'English', TRUE),
+('Adventures in Technology', 'Steve McCauley', '9780451487529', 'Tech Trends', '2021-11-07', 'Technology', 400, 'English', TRUE),
+('Wonders of Nature', 'John Green', '9780765374233', 'Nature Press', '2020-04-19', 'Nature', 310, 'English', TRUE),
+('The Shadow Chronicles', 'Eliza Brown', '9781409128425', 'Shadow Press', '2018-06-23', 'Fantasy', 380, 'English', TRUE);
